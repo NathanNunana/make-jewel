@@ -25,7 +25,6 @@ class BrowseCategories extends StatelessWidget{
         itemBuilder: (context, index)=>Container(
           width: 50,
           height: 50,
-          color: Colors.red,
           child: Stacked(title: cat[index].title, image: cat[index].image, description: cat[index].description),
         )),
       ),
