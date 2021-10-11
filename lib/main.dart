@@ -1,13 +1,15 @@
 // system imports
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 // local imports
-import 'platform.dart';
-import './widgets/scaffold.dart';
-import './widgets/appbar.dart';
+// import './widgets/scaffold.dart';
+// import './widgets/appbar.dart';
+import 'screens/landing_page.dart';
+import 'package:make_jewel/providers/products.dart';
+import 'package:make_jewel/screens/categories.dart';
+import 'package:make_jewel/screens/user.dart';
 
 
 void main() => runApp(MyApp());
@@ -16,11 +18,25 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget{
   @override 
   Widget build(BuildContext context){
-    return PlatformScaffold(
-      appbar: PlatformAppBar(
-        leading: Text("logo"),
-        title: Text("Make Jewel"),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ProductsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_)=> CategoryProvider(),
+        )
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          primaryColor: Colors.white
+        ),
+        routes: {
+          "/": (_) => LandingPage(),
+          "/user": (_) => UserPage(),
+          "/categories":(_) => BrowseCategories()
+        },
       ),
-    );
+    );    
   }
 }
