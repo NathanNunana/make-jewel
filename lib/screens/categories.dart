@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:make_jewel/providers/products.dart';
+import 'package:make_jewel/providers/products-provider.dart';
 import 'package:provider/provider.dart';
 
 import 'package:make_jewel/widgets/stack.dart';

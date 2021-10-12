@@ -57,7 +57,7 @@ class Carousel extends StatelessWidget {
                   Container(
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Color(0xff9245F5)),
+                              primary: Theme.of(context).buttonColor),
                           onPressed: () {},
                           child: Text("SHOP NOW"))),
                   SizedBox(

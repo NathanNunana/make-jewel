@@ -1,9 +1,10 @@
-class FeaturedItem{
+class Product{
   String? title;
   String? description;
   String? image;
   int? price;
-  FeaturedItem({this.title, this.description, this.image, this.price});
+  bool saved;
+  Product({this.title, this.description, this.image, this.price, this.saved = false});
 }
 
 class Category{

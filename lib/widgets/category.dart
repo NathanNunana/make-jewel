@@ -41,7 +41,7 @@ class Categories extends StatelessWidget {
             Navigator.pushNamed(context, "/categories");
           },
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(12),
             decoration: BoxDecoration(border: Border.all(color: Colors.black)),
             child: Text("BROWSE ALL CATEGORIES"),
           ),

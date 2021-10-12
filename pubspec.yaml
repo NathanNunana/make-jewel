@@ -31,6 +31,7 @@ dependencies:
   provider: ^6.0.1
   http: ^0.13.3
   flutter_svg: ^0.22.0
+  url_launcher: ^6.0.10
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +57,8 @@ flutter:
     - assets/images/brace.jpg
     - assets/images/neck.jpg
     - assets/images/user.jpg
+    - assets/svgs/empty-cart.svg
+    - assets/svgs/like.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

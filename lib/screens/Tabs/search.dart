@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:make_jewel/models/products.dart';
 
 class SearchProduct extends SearchDelegate {
-  List<FeaturedItem> product;
+  List<Product> product;
   SearchProduct(this.product);
   _searchLogic() {
     final suggestions = product.where((element) =>

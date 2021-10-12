@@ -1,28 +1,30 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../models/products.dart';
 
 class ProductsProvider extends ChangeNotifier {
-  final List<FeaturedItem> items = [
-    FeaturedItem(
+  final List<Product> items = [
+    Product(
         title: "Golden Bracelet",
         description:
             "Nice golden bracelet for both men and women, can engrave your name on it too",
         image: "assets/images/bracelet.jpg",
-        price: 3000),
-    FeaturedItem(
+        price: 3000,
+        ),
+    Product(
         title: "Golden Wristwear",
         description:
             "Nice golden bracelet for both men and women, can engrave your name on it too",
         image: "assets/images/bracelets.jpg",
         price: 5000),
-    FeaturedItem(
+    Product(
         title: "Indian Bracelet",
         description:
             "Nice golden bracelet for both men and women, can engrave your name on it too",
         image: "assets/images/brace.jpg",
         price: 6000),
-    FeaturedItem(
+    Product(
         title: "Golden Jewel",
         description:
             "Nice golden bracelet for both men and women, can engrave your name on it too",

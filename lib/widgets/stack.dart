@@ -47,8 +47,10 @@ class Stacked extends StatelessWidget {
                   height: 10,
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width*.47,
-                  child: Text(description.toString(), maxLines: 4, style: TextStyle(color: Colors.white54, fontSize: 12)))
+                    width: MediaQuery.of(context).size.width * .47,
+                    child: Text(description.toString(),
+                        maxLines: 4,
+                        style: TextStyle(color: Colors.white54, fontSize: 12)))
               ],
             )),
       ],
