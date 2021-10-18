@@ -19,7 +19,7 @@ class Favorite extends StatelessWidget {
     }
     if(product.length != 0){
       return Container(
-      margin: EdgeInsets.all(5),
+      margin: EdgeInsets.all(5 ),
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 200,

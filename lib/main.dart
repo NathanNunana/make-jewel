@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:make_jewel/providers/user-provider.dart';
+import 'package:make_jewel/screens/sign-in.dart';
 import 'package:provider/provider.dart';
 
 // local imports
@@ -37,8 +38,8 @@ class MyApp extends StatelessWidget{
           primarySwatch: Colors.blue
         ),
         routes: {
-          "/": (_) => LandingPage(),
-          // "/user": (_) => UserPage(),
+          "/": (_) => SignInPage(),
+          "/landing": (_) => LandingPage(),
           "/categories":(_) => BrowseCategories()
         },
       ),

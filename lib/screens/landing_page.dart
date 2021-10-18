@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:make_jewel/screens/Tabs/favorite.dart';
 import 'package:make_jewel/screens/user.dart';
 import 'package:provider/provider.dart';
@@ -13,11 +14,14 @@ import 'package:make_jewel/providers/products-provider.dart';
 // import '../widgets/featured.dart';
 
 class LandingPage extends StatefulWidget {
+  final GoogleSignInAccount? user;
+  LandingPage({this.user});
   @override
   _LandingPageState createState() => _LandingPageState();
 }
 
 class _LandingPageState extends State<LandingPage> {
+  late GoogleSignInAccount? user = widget.user;
   int _selectedIndex = 0;
   _onItemTapped(int index) {
     setState(() {
@@ -36,12 +40,12 @@ class _LandingPageState extends State<LandingPage> {
     return Scaffold(
       appBar: _selectedIndex == 2
           ? AppBar(
-            elevation: 1,
+              elevation: 1,
               title: Text("Profile"),
             )
           : _selectedIndex == 1
               ? AppBar(
-                elevation: 1,
+                  elevation: 1,
                   title: Text("Saved"),
                 )
               : AppBar(
