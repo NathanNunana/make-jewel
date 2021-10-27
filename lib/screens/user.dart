@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 import 'package:make_jewel/api/google-sign-in-api.dart';
 
 class UserPage extends StatelessWidget {
-  final GoogleSignInAccount? user;
-  UserPage({this.user});
+  // final GoogleSignInAccount? user;
+  // UserPage({this.user});
   Widget _buildListTileItem(String title, Color color, IconData icon) {
     return Column(
       children: [
@@ -39,24 +39,27 @@ class UserPage extends StatelessWidget {
         CircleAvatar(
             backgroundColor: Colors.blue,
             radius: 50,
-            backgroundImage: (user != null) ? NetworkImage(user!.photoUrl.toString(),) : null,
-            child: (user == null)? Icon(
+            // backgroundImage: (user != null) ? NetworkImage(user!.photoUrl.toString(),) : null,
+            child: Icon(
               Icons.person,
               size: 30,
               color: Colors.white,
-            ):null),
+            )),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
               Text(
-                user!.displayName.toString(),
+                "Nathan Kulewoshie",
+                // user!.displayName.toString(),
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
               SizedBox(
                 height: 5,
               ),
-              Text(user!.email),
+              Text("kulewoshienatha@gmail.com"
+                  // user!.email
+                  ),
             ],
           ),
         ),
@@ -82,8 +85,7 @@ class UserPage extends StatelessWidget {
                 "Customer Service", Colors.deepOrange, Icons.headset_mic),
             _buildListTileItem("Settings", Colors.black, Icons.settings),
             GestureDetector(
-                onTap: () async {
-                  await GoogleSignInApi.logout();
+                onTap: () {
                   Navigator.pushReplacementNamed(context, "/");
                 },
                 child: _buildListTileItem("logout", Colors.red, Icons.logout))

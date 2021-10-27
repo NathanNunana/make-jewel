@@ -9,7 +9,7 @@ class SearchProduct extends SearchDelegate {
   SearchProduct(this.product);
   _searchLogic() {
     final suggestions = product.where((element) =>
-        element.title.toString().toLowerCase().contains(query.toLowerCase()));
+        element.jewelName.toString().toLowerCase().contains(query.toLowerCase()));
     return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (BuildContext context, int index) => ListTile(
@@ -20,24 +20,24 @@ class SearchProduct extends SearchDelegate {
           child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: Image.asset(
-                suggestions.elementAt(index).image.toString(),
+                suggestions.elementAt(index).jewelUrl2.toString(),
                 fit: BoxFit.cover,
               )),
         ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(suggestions.elementAt(index).title.toString()),
+            Text(suggestions.elementAt(index).jewelName.toString()),
             Text(
-              suggestions.elementAt(index).description.toString(),
+              suggestions.elementAt(index).jewelDesc.toString(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
           ],
         ),
-        trailing: Text("GHS " + suggestions.elementAt(index).price.toString()),
+        trailing: Text("GHS " + suggestions.elementAt(index).jewelPrice.toString()),
         onTap: () {
-          query = suggestions.elementAt(index).title.toString();
+          query = suggestions.elementAt(index).jewelName.toString();
         },
       ),
     );

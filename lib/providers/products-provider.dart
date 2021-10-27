@@ -1,36 +1,49 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../models/products.dart';
 
 class ProductsProvider extends ChangeNotifier {
-  final List<Product> items = [
+  final List<Product> products = [
     Product(
-        title: "Golden Bracelet",
-        description:
+        jewelName: "Golden Bracelet",
+        jewelDesc:
             "Nice golden bracelet for both men and women, can engrave your name on it too",
-        image: "assets/images/bracelet.jpg",
-        price: 3000,
+        jewelUrl2: "assets/images/bracelet.jpg",
+        jewelPrice: 3000,
         ),
     Product(
-        title: "Golden Wristwear",
-        description:
+        jewelName: "Golden Wristwear",
+        jewelDesc:
             "Nice golden bracelet for both men and women, can engrave your name on it too",
-        image: "assets/images/bracelets.jpg",
-        price: 5000),
+        jewelUrl2: "assets/images/bracelets.jpg",
+        jewelPrice: 5000),
     Product(
-        title: "Indian Bracelet",
-        description:
+        jewelName: "Indian Bracelet",
+        jewelDesc:
             "Nice golden bracelet for both men and women, can engrave your name on it too",
-        image: "assets/images/brace.jpg",
-        price: 6000),
+        jewelUrl2: "assets/images/brace.jpg",
+        jewelPrice: 6000),
     Product(
-        title: "Golden Jewel",
-        description:
+        jewelName: "Golden Jewel",
+        jewelDesc:
             "Nice golden bracelet for both men and women, can engrave your name on it too",
-        image: "assets/images/user.jpg",
-        price: 2000),
+        jewelUrl2: "assets/images/user.jpg",
+        jewelPrice: 2000),
   ];
+  // http request
+  Future<Product> fetchProduts() async{
+    final response = await http.get(Uri.parse('https://us-central1-hive-unidash.cloudfunctions.net/api/users/makejewel/products'));
+    if(response.statusCode == 200){
+      return Product.fromJson(jsonDecode(response.body));
+    }else{
+      throw Exception('Failed to fetch products');
+    } 
+  }
+  notifyListeners();
 }
 
 class CategoryProvider extends ChangeNotifier{

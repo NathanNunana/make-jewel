@@ -28,7 +28,7 @@ _showDialog(context, item) {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: Text(
-                              item.title,
+                              item.jewelName,
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w700),
                             ),
@@ -40,7 +40,7 @@ _showDialog(context, item) {
                                   height: 150,
                                   width: double.infinity - 50,
                                   child: Image.asset(
-                                    item.image.toString(),
+                                    item.jewelUrl2.toString(),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -86,7 +86,7 @@ _showDialog(context, item) {
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Text(item.description),
+                            child: Text(item.jewelDesc),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -94,7 +94,7 @@ _showDialog(context, item) {
                               children: [
                                 Text("PRICE: GHS "),
                                 Text(
-                                  item.price.toString(),
+                                  item.jewelPrice.toString(),
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w700),
@@ -191,7 +191,7 @@ _showDialog(context, item) {
                     // height: 189,
                     width: 221,
                     child: Image.asset(
-                      item.image.toString(),
+                      item.jewelUrl2,
                       fit: BoxFit.cover,
                     )),
               ),
@@ -203,7 +203,7 @@ _showDialog(context, item) {
                       height: 15,
                     ),
                     Text(
-                      item.title.toString(),
+                      item!.jewelName,
                       style: TextStyle(
                           color: Color(0xff691CCB),
                           fontWeight: FontWeight.w600),
@@ -212,7 +212,7 @@ _showDialog(context, item) {
                       height: 15,
                     ),
                     Text(
-                      item.description.toString(),
+                      item.jewelDesc,
                       maxLines: 5,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 12),
@@ -220,7 +220,7 @@ _showDialog(context, item) {
                     SizedBox(
                       height: 10,
                     ),
-                    Text("GHS" + item.price.toString(),
+                    Text("GHS" + item.jewelPrice.toString(),
                         style: TextStyle(
                             color: Color(0xff691CCB),
                             fontWeight: FontWeight.w600)),

@@ -11,7 +11,7 @@ class BrowseCategories extends StatelessWidget{
     var cat = context.read<CategoryProvider>().cat;
     return Scaffold(
       appBar: AppBar(
-        title: Text("ALL CATEGORIES"),
+        title: Text("CATEGORIES"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -19,7 +19,7 @@ class BrowseCategories extends StatelessWidget{
           maxCrossAxisExtent: 200,
           mainAxisSpacing: 20,
           crossAxisSpacing: 20,
-          childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height/2)
+          childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height/1.5)
         ), 
         itemCount: cat.length,
         itemBuilder: (context, index)=>Container(

@@ -10,14 +10,14 @@ class Favorite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var product = context.read<ProductsProvider>().items;
+    var product = context.read<ProductsProvider>().products;
     List<Product> prod = [];
     for (var item in product) {
       if (item.saved) {
         prod.add(item);
       }
     }
-    if(product.length != 0){
+    if(prod.length != 0){
       return Container(
       margin: EdgeInsets.all(5 ),
       child: GridView.builder(
@@ -34,7 +34,12 @@ class Favorite extends StatelessWidget {
           ),
     );
     }else{
-      return SvgPicture.asset("assets/svgs/like.svg");
+      return Column(
+        children: [
+          SvgPicture.asset("assets/svgs/like.svg"),
+          Text("No item has been saved.", style: TextStyle(fontSize: 25),)
+        ],
+      );
     }
       
   }

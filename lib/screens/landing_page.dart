@@ -36,8 +36,9 @@ class _LandingPageState extends State<LandingPage> {
   ];
   @override
   Widget build(BuildContext context) {
-    var product = context.read<ProductsProvider>().items;
+    var product = context.read<ProductsProvider>().products;
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: _selectedIndex == 2
           ? AppBar(
               elevation: 1,
