@@ -8,10 +8,10 @@ import 'package:make_jewel/widgets/stack.dart';
 class BrowseCategories extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    var cat = context.read<CategoryProvider>().cat;
+    var cat = context.read<ProductsProvider>().products;
     return Scaffold(
       appBar: AppBar(
-        title: Text("CATEGORIES"),
+        title: Text("Categories"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -25,7 +25,7 @@ class BrowseCategories extends StatelessWidget{
         itemBuilder: (context, index)=>Container(
           width: 50,
           height: 50,
-          child: Stacked(title: cat[index].title, image: cat[index].image, description: cat[index].description),
+          child: Stacked(title: cat[index].jewelName, image: cat[index].jewelUrl1, description: cat[index].jewelDesc),
         )),
       ),
     );

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:make_jewel/providers/user-provider.dart';
+import 'package:make_jewel/screens/products.dart';
 import 'package:make_jewel/screens/sign-in.dart';
 import 'package:provider/provider.dart';
 
@@ -34,13 +35,14 @@ class MyApp extends StatelessWidget{
       child: MaterialApp(
         theme: ThemeData(
           primaryColor: Colors.white,
-          buttonColor: Color(0xff9245F5),
+          buttonTheme: ButtonThemeData(buttonColor: Color(0xff9245F5)),
           primarySwatch: Colors.blue
         ),
         routes: {
           "/": (_) => SignInPage(),
           "/landing": (_) => LandingPage(),
-          "/categories":(_) => BrowseCategories()
+          "/categories":(_) => BrowseCategories(),
+          "/all-products":(_) => ProductsPage()
         },
       ),
     );    

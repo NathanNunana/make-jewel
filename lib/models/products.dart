@@ -1,25 +1,41 @@
 class Product {
-  String? jewelName;
-  String? jewelDesc;
-  String? jewelUrl2;
-  int? jewelPrice;
+  dynamic jewelName;
+  dynamic jewelDesc;
+  dynamic jewelUrl1;
+  dynamic jewelUrl2;
+  dynamic jewelUrl3;
+  dynamic jewelPrice;
+  dynamic jewelLocation;
+  dynamic jewelRefPhone;
+  dynamic featured;
   bool saved;
   Product(
-      {this.jewelName,
-      this.jewelDesc,
-      this.jewelUrl2,
-      this.jewelPrice,
+      {required this.jewelName,
+      required this.jewelDesc,
+      required this.jewelUrl1,
+      required this.jewelUrl2,
+      required this.jewelUrl3,
+      required this.jewelPrice,
+      required this.jewelLocation,
+      required this.jewelRefPhone,
+      required this.featured,
       this.saved = false});
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       jewelName: json['jewelName'],
-      jewelDesc: json['jewelDesc'], 
+      jewelDesc: json['jewelDesc'],
+      jewelUrl1: json['jewelUrl1'], 
       jewelUrl2: json['jewelUrl2'],
-      jewelPrice: json['jewelPrice'],
+      jewelUrl3: json['jewelUrl3'],
+      jewelPrice: json['jewelPrice'].toString(),
+      jewelLocation: json['jewelLocation'],
+      jewelRefPhone: json['jewelRefPhone'],
+      featured: json['featured']
     );
   }
 }
+
 
 class Category {
   String? title;

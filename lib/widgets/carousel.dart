@@ -1,9 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:make_jewel/providers/products-provider.dart';
+import 'package:provider/provider.dart';
 
-class Carousel extends StatelessWidget {
+class Carousel extends StatefulWidget {
+  @override
+  _CarouselState createState() => _CarouselState();
+}
+
+class _CarouselState extends State<Carousel> {
+  int imgnum = 0;
   @override
   Widget build(BuildContext context) {
+    var product = context.read<ProductsProvider>().products;
+    Future.delayed(
+        Duration(seconds: 60),
+        () => {
+              setState(() {
+                imgnum = (imgnum + 1) % product.length;
+              })
+            });
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -16,8 +33,8 @@ class Carousel extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 height: 213,
-                child: Image.asset(
-                  "assets/images/bracelets.jpg",
+                child: Image.network(
+                  product[imgnum].jewelUrl1,
                   fit: BoxFit.cover,
                 ),
                 decoration: BoxDecoration(),
@@ -58,7 +75,9 @@ class Carousel extends StatelessWidget {
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               primary: Theme.of(context).buttonColor),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, "/all-products");
+                          },
                           child: Text("SHOP NOW"))),
                   SizedBox(
                     height: 10,

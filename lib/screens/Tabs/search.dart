@@ -19,8 +19,8 @@ class SearchProduct extends SearchDelegate {
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
           child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Image.asset(
-                suggestions.elementAt(index).jewelUrl2.toString(),
+              child: Image.network(
+                  suggestions.elementAt(index).jewelUrl1.toString(),
                 fit: BoxFit.cover,
               )),
         ),

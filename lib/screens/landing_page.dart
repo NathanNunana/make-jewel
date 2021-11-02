@@ -54,23 +54,15 @@ class _LandingPageState extends State<LandingPage> {
                   // title: Text("Make Jewel"),
                   elevation: 1,
                   actions: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "/user");
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircleAvatar(
-                          backgroundImage: AssetImage("assets/images/user.jpg"),
-                        ),
-                      ),
-                    )
+                    IconButton(onPressed: (){
+
+                    }, icon: Icon(Icons.search))
                   ],
                 ),
       floatingActionButton: _selectedIndex != 0
           ? null
           : FloatingActionButton(
-              backgroundColor: Theme.of(context).buttonColor,
+              // backgroundColor: Theme.of(context).buttonTheme.,
               child: Icon(Icons.search),
               onPressed: () {
                 showSearch(

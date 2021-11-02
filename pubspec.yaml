@@ -33,6 +33,7 @@ dependencies:
   flutter_svg: ^0.22.0
   url_launcher: ^6.0.10
   google_sign_in: ^5.1.0
+  flutter_staggered_grid_view: ^0.4.1
 
 dev_dependencies:
   flutter_test:
@@ -51,14 +52,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/ring.jpg
     - assets/images/circular.png
-    - assets/images/bracelet.jpg
-    - assets/images/bracelets.jpg
-    - assets/images/brace.jpg
-    - assets/images/neck.jpg
     - assets/images/user.jpg
-    - assets/svgs/empty-cart.svg
     - assets/svgs/like.svg
   #   - images/a_dot_ham.jpeg
 

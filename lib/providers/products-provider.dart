@@ -7,46 +7,26 @@ import 'package:http/http.dart' as http;
 import '../models/products.dart';
 
 class ProductsProvider extends ChangeNotifier {
-  final List<Product> products = [
-    Product(
-        jewelName: "Golden Bracelet",
-        jewelDesc:
-            "Nice golden bracelet for both men and women, can engrave your name on it too",
-        jewelUrl2: "assets/images/bracelet.jpg",
-        jewelPrice: 3000,
-        ),
-    Product(
-        jewelName: "Golden Wristwear",
-        jewelDesc:
-            "Nice golden bracelet for both men and women, can engrave your name on it too",
-        jewelUrl2: "assets/images/bracelets.jpg",
-        jewelPrice: 5000),
-    Product(
-        jewelName: "Indian Bracelet",
-        jewelDesc:
-            "Nice golden bracelet for both men and women, can engrave your name on it too",
-        jewelUrl2: "assets/images/brace.jpg",
-        jewelPrice: 6000),
-    Product(
-        jewelName: "Golden Jewel",
-        jewelDesc:
-            "Nice golden bracelet for both men and women, can engrave your name on it too",
-        jewelUrl2: "assets/images/user.jpg",
-        jewelPrice: 2000),
-  ];
+  List<Product> products = [];
   // http request
-  Future<Product> fetchProduts() async{
-    final response = await http.get(Uri.parse('https://us-central1-hive-unidash.cloudfunctions.net/api/users/makejewel/products'));
-    if(response.statusCode == 200){
-      return Product.fromJson(jsonDecode(response.body));
-    }else{
+  Future<List<Product>> fetchProduts() async {
+    final response = await http.get(Uri.parse(
+        'https://us-central1-hive-unidash.cloudfunctions.net/api/users/makejewel/products'));
+    if (response.statusCode == 200) {
+      List<dynamic> prods = jsonDecode(response.body)['productsArray'];
+      products = prods.map((product) => Product.fromJson(product['product_data'])).toList();
+      print("Here!");
+      print(products);
+      return products;
+    } else {
       throw Exception('Failed to fetch products');
-    } 
+    }
   }
+
   notifyListeners();
 }
 
-class CategoryProvider extends ChangeNotifier{
+class CategoryProvider extends ChangeNotifier {
   final List<Category> cat = [
     Category(
       title: "Rings",

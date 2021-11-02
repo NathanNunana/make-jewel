@@ -1,12 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:make_jewel/providers/products-provider.dart';
+
 
 import './stack.dart';
+
 
 class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var product = context.read<ProductsProvider>().products;
     return Column(
       children: [
         SizedBox(
@@ -20,7 +25,7 @@ class Categories extends StatelessWidget {
               width: size.width * .47,
               child: Stacked(
                 title: "Neck Wear",
-                image: "assets/images/neck.jpg",
+                image: product[1].jewelUrl1,
               ),
             ),
             Container(
@@ -28,7 +33,7 @@ class Categories extends StatelessWidget {
               width: size.width * .47,
               child: Stacked(
                 title: "Ring",
-                image: "assets/images/ring.jpg",
+                image: product[2].jewelUrl1,
               ),
             )
           ],

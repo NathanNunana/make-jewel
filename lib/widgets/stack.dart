@@ -14,7 +14,7 @@ class Stacked extends StatelessWidget {
       children: [
         Positioned.fill(
             child: Container(
-          child: Image.asset(
+          child: Image.network(
             image.toString(),
             fit: BoxFit.cover,
           ),

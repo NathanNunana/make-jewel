@@ -8,36 +8,35 @@ import 'package:provider/provider.dart';
 import '../providers/products-provider.dart';
 
 class FeaturedProduct extends StatefulWidget {
+  late final Future<List<Product>>? futureProducts;
+  FeaturedProduct({this.futureProducts});
   @override
   _FeaturedProductState createState() => _FeaturedProductState();
 }
 
 class _FeaturedProductState extends State<FeaturedProduct> {
-  late Future<Product> futureProducts;
-
-  @override
-  void initState() {
-    super.initState();
-    futureProducts = context.read<ProductsProvider>().fetchProduts();
-  }
-
   @override
   Widget build(BuildContext context) {
     // var items = context.read<ProductsProvider>().products;
     return FutureBuilder(
-        future: futureProducts,
-        builder: (context, snapshot) {
-          print("This is the : ${snapshot.data.toString().length}");
-          print("This is the : ${snapshot.data}");
+        future: widget.futureProducts,
+        builder: (BuildContext context,AsyncSnapshot<List<Product>> snapshot) {
           if (snapshot.hasData) {
             return Container(
               height: 299,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   physics: BouncingScrollPhysics(),
-                  itemCount: 4,
-                  itemBuilder: (context, index) =>
-                      buildListItem(snapshot.data, context)),
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    var featured = snapshot.data![index].featured;
+                    if(featured != null && featured == true){
+                      return buildListItem(snapshot.data![index], context);
+                    }else{
+                      return Container();
+                    }
+                  }
+                      ),
             );
           } else if (snapshot.hasError) {
             return Text("${snapshot.error}");
