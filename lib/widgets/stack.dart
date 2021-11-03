@@ -14,15 +14,19 @@ class Stacked extends StatelessWidget {
       children: [
         Positioned.fill(
             child: Container(
-          child: Image.network(
-            image.toString(),
-            fit: BoxFit.cover,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(
+              image.toString(),
+              fit: BoxFit.cover,
+            ),
           ),
         )),
         Positioned.fill(
             child: Container(
           height: 241,
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
               gradient: LinearGradient(
                   colors: [Colors.black54, Colors.transparent],
                   begin: Alignment.bottomCenter,

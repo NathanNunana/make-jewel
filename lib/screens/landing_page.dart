@@ -31,39 +31,53 @@ class _LandingPageState extends State<LandingPage> {
 
   List<Widget> pages = [
     HomeTab(),
-    Favorite(),
+    // Favorite(),
+    // Favorite(),
     UserPage(),
   ];
   @override
   Widget build(BuildContext context) {
     var product = context.read<ProductsProvider>().products;
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      // backgroundColor: Colors.white,
       appBar: _selectedIndex == 2
           ? AppBar(
-              elevation: 1,
-              title: Text("Profile"),
+              elevation: 0.5,
+              title: Text("Cart"),
             )
           : _selectedIndex == 1
               ? AppBar(
-                  elevation: 1,
-                  title: Text("Saved"),
+                  elevation: 0.5,
+                  title: Text("Profile"),
                 )
-              : AppBar(
-                  leading: Image.asset("assets/images/circular.png"),
-                  // title: Text("Make Jewel"),
-                  elevation: 1,
-                  actions: [
-                    IconButton(onPressed: (){
-
-                    }, icon: Icon(Icons.search))
-                  ],
-                ),
-      floatingActionButton: _selectedIndex != 0
-          ? null
-          : FloatingActionButton(
-              // backgroundColor: Theme.of(context).buttonTheme.,
-              child: Icon(Icons.search),
+              : _selectedIndex == 3
+                  ? AppBar(
+                      elevation: 0.5,
+                      title: Text("Profile"),
+                    )
+                  : AppBar(
+                      leading: Image.asset("assets/images/circular.png"),
+                      title: Text("MakeJewel",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400, fontSize: 20)),
+                      elevation: 0.5,
+                      actions: [
+                        IconButton(
+                            onPressed: () {
+                              showSearch(
+                                  context: context,
+                                  delegate: SearchProduct(product));
+                            },
+                            icon: Icon(
+                              CupertinoIcons.search,
+                              color: Colors.black,
+                            ))
+                      ],
+                    ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+              backgroundColor: Color(0xff9245F5),
+              child: Icon(Icons.add),
               onPressed: () {
                 showSearch(
                   context: context,
@@ -71,16 +85,25 @@ class _LandingPageState extends State<LandingPage> {
                 );
               }),
       body: pages.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        selectedItemColor: Theme.of(context).buttonColor,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Saved"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-          // BottomNavigationBarItem(icon: Icon(Icons.home), label: "Shop")
-        ],
+
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 6,
+        clipBehavior: Clip.antiAlias,
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          selectedItemColor: Color(0xff9245F5),
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            // BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Saved"),
+            // BottomNavigationBarItem(
+                // icon: Icon(Icons.shopping_bag), label: "Cart"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+            // BottomNavigationBarItem(icon: Icon(Icons.home), label: "Shop")
+          ],
+        ),
       ),
     );
   }

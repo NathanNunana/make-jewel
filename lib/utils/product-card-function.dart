@@ -215,18 +215,23 @@ buildListItem(var item, BuildContext context) {
       _showDialog(context, item);
     },
     child: Container(
+      height: 300,
       width: 200,
+      padding: EdgeInsets.all(10),
       child: Card(
         child: Column(
           children: [
             Expanded(
-              child: Container(
-                  // height: 189,
-                  width: 221,
-                  child: Image.network(
-                    item.jewelUrl1,
-                    fit: BoxFit.cover,
-                  )),
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+                child: Container(
+                    // height: 189,
+                    width: double.infinity,
+                    child: Image.network(
+                      item.jewelUrl1,
+                      fit: BoxFit.cover,
+                    )),
+              ),
             ),
             Padding(
               padding: EdgeInsets.all(8.0),
@@ -249,13 +254,6 @@ buildListItem(var item, BuildContext context) {
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 12),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text("GHS" + item.jewelPrice.toString(),
-                      style: TextStyle(
-                          color: Color(0xff691CCB),
-                          fontWeight: FontWeight.w600)),
                   SizedBox(
                     height: 15,
                   )

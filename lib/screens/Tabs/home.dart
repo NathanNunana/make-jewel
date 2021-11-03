@@ -27,12 +27,9 @@ class _HomeTabState extends State<HomeTab> {
     return SafeArea(
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Carousel(), Categories(), FeaturedProduct(futureProducts:futureProducts)],
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [Carousel(), Categories(), FeaturedProduct(futureProducts:futureProducts)],
             ),
           ));
   }

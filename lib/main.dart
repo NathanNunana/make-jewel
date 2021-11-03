@@ -26,22 +26,27 @@ class MyApp extends StatelessWidget{
           create: (_) => ProductsProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_)=> CategoryProvider(),
-        ), 
-        ChangeNotifierProvider(
           create: (_)=>UserProvider(),
         )
       ],
       child: MaterialApp(
         theme: ThemeData(
-          primaryColor: Colors.white,
+          fontFamily: "Gotham",
+          // scaffoldBackgroundColor: Colors.white,
           buttonTheme: ButtonThemeData(buttonColor: Color(0xff9245F5)),
-          primarySwatch: Colors.blue
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.white,
+            // color: Colors.black
+            centerTitle: true,
+            titleTextStyle: TextStyle(color: Colors.black),
+            iconTheme: IconThemeData(
+              color: Colors.black
+            )
+          )
         ),
         routes: {
           "/": (_) => SignInPage(),
           "/landing": (_) => LandingPage(),
-          "/categories":(_) => BrowseCategories(),
           "/all-products":(_) => ProductsPage()
         },
       ),

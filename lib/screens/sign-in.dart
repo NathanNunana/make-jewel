@@ -32,7 +32,7 @@ class _SignInPageState extends State<SignInPage> {
           Navigator.pop(context);
         }, icon: Icon(Icons.arrow_back),),
       ),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),

@@ -14,7 +14,9 @@ class ProductsProvider extends ChangeNotifier {
         'https://us-central1-hive-unidash.cloudfunctions.net/api/users/makejewel/products'));
     if (response.statusCode == 200) {
       List<dynamic> prods = jsonDecode(response.body)['productsArray'];
-      products = prods.map((product) => Product.fromJson(product['product_data'])).toList();
+      products = prods
+          .map((product) => Product.fromJson(product['product_data']))
+          .toList();
       print("Here!");
       print(products);
       return products;
@@ -23,46 +25,40 @@ class ProductsProvider extends ChangeNotifier {
     }
   }
 
-  notifyListeners();
-}
-
-class CategoryProvider extends ChangeNotifier {
   final List<Category> cat = [
     Category(
-      title: "Rings",
-      description:
-          "Nice golden bracelet for both men and women, can engrave your name on it too",
-      image: "assets/images/bracelet.jpg",
-    ),
-    Category(
-      title: "Neck Wear",
-      description:
-          "Nice golden bracelet for both men and women, can engrave your name on it too",
-      image: "assets/images/bracelets.jpg",
-    ),
-    Category(
-      title: "Wrist Wear",
-      description:
-          "Nice golden bracelet for both men and women, can engrave your name on it too",
-      image: "assets/images/brace.jpg",
-    ),
-    Category(
       title: "Beads",
-      description:
-          "Nice golden bracelet for both men and women, can engrave your name on it too",
-      image: "assets/images/user.jpg",
+      image: "assets/images/beads.png",
     ),
     Category(
-      title: "Earlings",
-      description:
-          "Nice golden bracelet for both men and women, can engrave your name on it too",
-      image: "assets/images/user.jpg",
+      title: "NeckWear",
+      image: "assets/images/jewellery.png",
     ),
     Category(
-      title: "Anklets",
-      description:
-          "Nice golden bracelet for both men and women, can engrave your name on it too",
-      image: "assets/images/user.jpg",
+      title: "Rings",
+      image: "assets/images/diamond-ring.png",
+    ),
+    Category(
+      title: "Earings",
+      image: "assets/images/earings.png",
+    ),
+    Category(
+      title: "WristWear",
+      image: "assets/images/bracelet.png",
+    ),
+    Category(
+      title: "Anklet",
+      image: "assets/images/ankle.png",
     )
   ];
+
+  List<Product> filterProduct(String cat) {
+    return products
+        .where((e) =>
+            e.jewelCategory.toString().toLowerCase().trim() ==
+            cat.toLowerCase().trim())
+        .toList();
+  }
+
+  notifyListeners();
 }

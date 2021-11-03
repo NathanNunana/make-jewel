@@ -8,6 +8,7 @@ class Product {
   dynamic jewelLocation;
   dynamic jewelRefPhone;
   dynamic featured;
+  dynamic jewelCategory;
   bool saved;
   Product(
       {required this.jewelName,
@@ -18,6 +19,7 @@ class Product {
       required this.jewelPrice,
       required this.jewelLocation,
       required this.jewelRefPhone,
+      required this.jewelCategory,
       required this.featured,
       this.saved = false});
 
@@ -31,7 +33,8 @@ class Product {
       jewelPrice: json['jewelPrice'].toString(),
       jewelLocation: json['jewelLocation'],
       jewelRefPhone: json['jewelRefPhone'],
-      featured: json['featured']
+      featured: json['featured'],
+      jewelCategory: json['jewelCategory']
     );
   }
 }
@@ -39,15 +42,6 @@ class Product {
 
 class Category {
   String? title;
-  String? description;
   String? image;
-  Category({this.title, this.description, this.image});
-
-  factory Category.fromJson(Map<String, dynamic> json){
-    return Category(
-      title: json['title'],
-      description: json['description'],
-      image: json['image']
-    );
-  }
+  Category({this.title, this.image});
 }

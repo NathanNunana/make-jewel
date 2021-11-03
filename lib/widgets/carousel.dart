@@ -24,9 +24,6 @@ class _CarouselState extends State<Carousel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: 5,
-        ),
         Stack(
           children: [
             Positioned(
@@ -74,7 +71,7 @@ class _CarouselState extends State<Carousel> {
                   Container(
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Theme.of(context).buttonColor),
+                              primary: Color(0xff9245F5)),
                           onPressed: () {
                             Navigator.pushNamed(context, "/all-products");
                           },

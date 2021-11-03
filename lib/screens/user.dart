@@ -70,7 +70,7 @@ class UserPage extends StatelessWidget {
             child: Text("Edit Profile"),
             style: ElevatedButton.styleFrom(
                 fixedSize: Size(200, 45),
-                primary: Theme.of(context).buttonColor),
+                primary: Color(0xff9245F5)),
           ),
         ),
         SizedBox(
