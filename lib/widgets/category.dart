@@ -14,7 +14,7 @@ class Categories extends StatelessWidget {
       children: [
         Container(
             width: double.infinity,
-            color: Colors.white,
+            color: Theme.of(context).appBarTheme.backgroundColor,
             padding: EdgeInsets.all(15),
             child: Text(
               "Category",
@@ -66,7 +66,7 @@ class Categories extends StatelessWidget {
         ),
         Container(
             width: double.infinity,
-            color: Colors.white,
+            color: Theme.of(context).appBarTheme.backgroundColor,
             padding: EdgeInsets.all(15),
             child:
                 Text("Featured", style: TextStyle(fontWeight: FontWeight.w900)))

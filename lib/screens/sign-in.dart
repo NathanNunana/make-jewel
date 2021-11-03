@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:make_jewel/api/google-sign-in-api.dart';
+import 'package:make_jewel/providers/user-provider.dart';
 import 'package:make_jewel/screens/landing_page.dart';
+import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -9,29 +10,35 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  Future _signIn() async {
-    GoogleSignInAccount? user = await GoogleSignInApi.login();
-    if (user == null) {
-      return Scaffold(
-        body: Center(
-          child: Text("Sign in Failed!"),
-        ),
-      );
-    } else {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => LandingPage(user: user)));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    var signIn = context.read<UserProvider>();
+    _signIn() async{
+      await signIn.signIn();
+      GoogleSignInAccount? user = signIn.user;
+      if (user == null) {
+        return Scaffold(
+          body: Center(
+            child: Text("Sign in Failed!"),
+          ),
+        );
+      } else {
+        print(user);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => LandingPage()));
+      }
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        elevation: 1,
-        leading: IconButton(onPressed: (){
-          Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back),),
-      ),
+        appBar: AppBar(
+          elevation: 1,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
+        ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Padding(
@@ -83,18 +90,22 @@ class _SignInPageState extends State<SignInPage> {
                 Container(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                      style: TextButton.styleFrom(primary: Color(0xff848484).withOpacity(.55)),
-                        onPressed: () {}, child: Text("Forgot password?"))),
+                        style: TextButton.styleFrom(
+                            primary: Color(0xff848484).withOpacity(.55)),
+                        onPressed: () {},
+                        child: Text("Forgot password?"))),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    width: double.infinity,
-                    height: 52,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Theme.of(context).buttonColor),
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, "/landing");
-                      }, child: Text("Login"))),
+                      width: double.infinity,
+                      height: 52,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Theme.of(context).buttonColor),
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, "/landing");
+                          },
+                          child: Text("Login"))),
                 ),
                 SizedBox(
                   height: 10,
@@ -104,9 +115,10 @@ class _SignInPageState extends State<SignInPage> {
                   children: [
                     Text("Do you have an account?"),
                     TextButton(
-                      style: TextButton.styleFrom(primary: Theme.of(context).buttonColor),
+                      style: TextButton.styleFrom(
+                          primary: Theme.of(context).buttonColor),
                       child: Text("Sign up"),
-                      onPressed: (){},
+                      onPressed: () {},
                       // style: TextStyle(
                       //     color: Theme.of(context).buttonColor,
                       //     fontWeight: FontWeight.w600),

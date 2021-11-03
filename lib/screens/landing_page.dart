@@ -14,14 +14,11 @@ import 'package:make_jewel/providers/products-provider.dart';
 // import '../widgets/featured.dart';
 
 class LandingPage extends StatefulWidget {
-  final GoogleSignInAccount? user;
-  LandingPage({this.user});
   @override
   _LandingPageState createState() => _LandingPageState();
 }
 
 class _LandingPageState extends State<LandingPage> {
-  late GoogleSignInAccount? user = widget.user;
   int _selectedIndex = 0;
   _onItemTapped(int index) {
     setState(() {
@@ -57,9 +54,26 @@ class _LandingPageState extends State<LandingPage> {
                     )
                   : AppBar(
                       leading: Image.asset("assets/images/circular.png"),
-                      title: Text("MakeJewel",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 20)),
+                      title: RichText(
+                        text: TextSpan(
+                            text: "Make",
+                            style: TextStyle(
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: 25,
+                                fontWeight: FontWeight.w300),
+                            children: [
+                              TextSpan(
+                                text: "Jewel",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ]),
+                      ),
                       elevation: 0.5,
                       actions: [
                         IconButton(
@@ -76,14 +90,14 @@ class _LandingPageState extends State<LandingPage> {
                     ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-              backgroundColor: Color(0xff9245F5),
-              child: Icon(Icons.add),
-              onPressed: () {
-                showSearch(
-                  context: context,
-                  delegate: SearchProduct(product),
-                );
-              }),
+          backgroundColor: Color(0xff9245F5),
+          child: Icon(Icons.add),
+          onPressed: () {
+            showSearch(
+              context: context,
+              delegate: SearchProduct(product),
+            );
+          }),
       body: pages.elementAt(_selectedIndex),
 
       bottomNavigationBar: BottomAppBar(
@@ -99,7 +113,7 @@ class _LandingPageState extends State<LandingPage> {
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             // BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Saved"),
             // BottomNavigationBarItem(
-                // icon: Icon(Icons.shopping_bag), label: "Cart"),
+            // icon: Icon(Icons.shopping_bag), label: "Cart"),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
             // BottomNavigationBarItem(icon: Icon(Icons.home), label: "Shop")
           ],
