@@ -74,19 +74,24 @@ class UserPage extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 10,
+          height: 20,
         ),
         Expanded(
           child: ListView(children: [
-            _buildListTileItem(
-                "Theme", Colors.deepPurple, Icons.nights_stay_rounded),
+            // _buildListTileItem(
+            //     "Theme", Colors.deepPurple, Icons.nights_stay_rounded),
             GestureDetector(
               onTap: (){
                 Navigator.pushNamed(context, "/about-app");
               },
               child: _buildListTileItem("About The App", Colors.green, Icons.info)),
-            _buildListTileItem(
-                "Customer Service", Colors.deepOrange, Icons.headset_mic),
+            GestureDetector(
+              onTap: (){
+                Navigator.pushNamed(context, "/my-shop");
+              },
+              child: _buildListTileItem(
+                  "My Shop", Colors.deepOrange, Icons.store),
+            ),
             _buildListTileItem("Settings", Colors.black, Icons.settings),
             GestureDetector(
                 onTap: () {

@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:make_jewel/screens/Tabs/home.dart';
 import 'package:make_jewel/screens/Tabs/search.dart';
 import 'package:make_jewel/providers/products-provider.dart';
+import './add-product.dart';
 // import '../widgets/carousel.dart';
 // import '../widgets/category.dart';
 // import '../widgets/featured.dart';
@@ -93,10 +94,7 @@ class _LandingPageState extends State<LandingPage> {
           backgroundColor: Color(0xff9245F5),
           child: Icon(Icons.add),
           onPressed: () {
-            showSearch(
-              context: context,
-              delegate: SearchProduct(product),
-            );
+            Navigator.pushNamed(context, "/add-products");
           }),
       body: pages.elementAt(_selectedIndex),
 

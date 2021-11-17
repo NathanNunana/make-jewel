@@ -40,7 +40,7 @@ class AboutAppPage extends StatelessWidget {
               "Version:",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            title: Text("1.0.0"),
+            title: Text("1.0.1"),
           ),
           Divider()
         ],

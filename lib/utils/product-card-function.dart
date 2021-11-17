@@ -39,11 +39,12 @@ _showDialog(context, item) {
                               child: Container(
                                 height: 150,
                                 width: double.infinity - 50,
-                                
-                                    child: (item.jewelUrl2 != null)? Image.network(
-                                      item.jewelUrl2,
-                                      fit: BoxFit.cover,
-                                    ) : Container(),
+                                child: (item.jewelUrl2 != null)
+                                    ? Image.network(
+                                        item.jewelUrl2,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Container(),
                               ),
                             ),
                             SizedBox(
@@ -58,15 +59,17 @@ _showDialog(context, item) {
                                   Container(
                                     height: 45,
                                     width: 45,
-                                    child: (item.jewelUrl2 != null)? Image.network(
-                                      item.jewelUrl2,
-                                      fit: BoxFit.cover,
-                                    ) : Container(),
+                                    child: (item.jewelUrl2 != null)
+                                        ? Image.network(
+                                            item.jewelUrl2,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Container(),
                                     decoration: BoxDecoration(
-                                      // color: Colors.red,
-                                      // border: Border.all(
-                                      //     color: Colors.black, width: .1),
-                                    ),
+                                        // color: Colors.red,
+                                        // border: Border.all(
+                                        //     color: Colors.black, width: .1),
+                                        ),
                                     // padding: EdgeInsets.all(20),
                                   ),
                                   SizedBox(
@@ -76,17 +79,19 @@ _showDialog(context, item) {
                                   Container(
                                     height: 45,
                                     width: 45,
-                                    
-                                    child: (item.jewelUrl2 != null)? Image.network(
-                                      item.jewelUrl2,
-                                      fit: BoxFit.cover,
-                                    ) : Container(),
+
+                                    child: (item.jewelUrl2 != null)
+                                        ? Image.network(
+                                            item.jewelUrl2,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Container(),
                                     decoration: BoxDecoration(
 
-                                      // color: Colors.red,
+                                        // color: Colors.red,
                                         // border: Border.all(
                                         //     color: Colors.black, width: .1)
-                                            ),
+                                        ),
                                     // padding: EdgeInsets.all(20),
                                   ),
                                   SizedBox(
@@ -96,16 +101,18 @@ _showDialog(context, item) {
                                   Container(
                                     height: 45,
                                     width: 45,
-                                    
-                                    child: (item.jewelUrl2 != null)? Image.network(
-                                      item.jewelUrl2,
-                                      fit: BoxFit.cover,
-                                    ) : Container(),
+
+                                    child: (item.jewelUrl2 != null)
+                                        ? Image.network(
+                                            item.jewelUrl2,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Container(),
                                     decoration: BoxDecoration(
 
                                         // border: Border.all(
                                         //     color: Colors.black, width: .1)
-                                            ),
+                                        ),
                                     // padding: EdgeInsets.all(20),
                                   )
                                 ],
@@ -178,32 +185,32 @@ _showDialog(context, item) {
                     height: 10,
                   ),
                   Divider(),
-                  Row(
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            item.saved = !item.saved;
-                            Navigator.pop(context);
-                          },
-                          child: Icon(
-                            Icons.favorite,
-                            color: item.saved ? Colors.red : Colors.grey[500],
-                          )),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                primary: Theme.of(context).buttonColor),
-                            onPressed: () {
-                              launch("tel:" + tel);
-                            },
-                            child: Icon(Icons.call)),
-                      ),
-                    ],
-                  )
+                  // Row(
+                  //   children: [
+                  //     TextButton(
+                  //         onPressed: () {
+                  //           item.saved = !item.saved;
+                  //           Navigator.pop(context);
+                  //         },
+                  //         child: Icon(
+                  //           Icons.favorite,
+                  //           color: item.saved ? Colors.red : Colors.grey[500],
+                  //         )),
+                  //     SizedBox(
+                  //       width: 10,
+                  //     ),
+                  MaterialButton(
+                    minWidth: double.infinity,
+                    color: Color(0xff9245F5),
+                      // style: ElevatedButton.styleFrom(
+                          // primary: Theme.of(context).buttonColor),
+                      onPressed: () {
+                        launch("tel:" + tel);
+                      },
+                      child: Icon(Icons.call, color: Colors.white,)),
                 ],
+                //   )
+                // ],
               ),
             ),
           ));
@@ -216,14 +223,15 @@ buildListItem(var item, BuildContext context) {
     },
     child: Container(
       height: 300,
-      width: 200,
-      padding: EdgeInsets.all(10),
+      width: 230,
+      padding: EdgeInsets.all(8),
       child: Card(
         child: Column(
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(5), topRight: Radius.circular(5)),
                 child: Container(
                     // height: 189,
                     width: double.infinity,
