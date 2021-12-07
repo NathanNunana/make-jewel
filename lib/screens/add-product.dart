@@ -5,18 +5,15 @@ import 'package:provider/provider.dart';
 import 'package:make_jewel/providers/products-provider.dart';
 import 'package:make_jewel/widgets/image-picker.dart';
 
-class AddProducts extends StatefulWidget {
+class AddProducts extends StatelessWidget {
   @override
-  State<AddProducts> createState() => _AddProductsState();
-}
+  final TextEditingController _titleController = new TextEditingController();
+  final TextEditingController _descriptionController =
+      new TextEditingController();
+  final TextEditingController _priceController = new TextEditingController();
 
-class _AddProductsState extends State<AddProducts> {
-  String dropDownVal = "Beads";
-  TextEditingController _titleController = new TextEditingController();
-  TextEditingController _descriptionController = new TextEditingController();
-  TextEditingController _priceController = new TextEditingController();
-
-  _buildTextField(String name, String desc, TextEditingController controller, {int? maxline = 1}) {
+  _buildTextField(String name, String desc, TextEditingController controller,
+      {int? maxline = 1}) {
     return Container(
       padding: EdgeInsets.all(10),
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 18),
@@ -78,11 +75,11 @@ class _AddProductsState extends State<AddProducts> {
                     child: DropdownButton<String>(
                         hint: Text("Select a Category"),
                         isExpanded: true,
-                        value: dropDownVal,
+                        value: context.read<ProductsProvider>().category,
                         onChanged: (String? value) {
-                          setState(() {
-                            dropDownVal = value.toString();
-                          });
+                          context
+                              .read<ProductsProvider>()
+                              .switchCategories(value.toString());
                         },
                         items: <String>[
                           "Beads",
@@ -110,7 +107,8 @@ class _AddProductsState extends State<AddProducts> {
                 _titleController),
 
             _buildTextField("Description", "Shortly describe the product",
-                _descriptionController, maxline: 3),
+                _descriptionController,
+                maxline: 3),
             _buildTextField(
                 "Price", "You can change the currency", _priceController),
 
@@ -120,17 +118,16 @@ class _AddProductsState extends State<AddProducts> {
                 child: MaterialButton(
                   padding: EdgeInsets.all(20),
                   onPressed: () {
-                    setState(() {
-                      context.read<ProductsProvider>().createProduct(
-                          dropDownVal,
-                          _titleController.text,
-                          _descriptionController.text,
-                          _priceController.text);
-                    });
-                    _titleController.clear();
-                    _descriptionController.clear();
-                    _priceController.clear();
-                  },
+                    context.read<ProductsProvider>().postProduct(
+                        context.read<ProductsProvider>().category,
+                        _titleController.text,
+                        _descriptionController.text,
+                        _priceController.text);
+                  }
+                  // _titleController.clear();
+                  // _descriptionController.clear();
+                  // _priceController.clear();
+                  ,
                   child: Text(
                     "Upload Product",
                     style: TextStyle(

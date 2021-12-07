@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:make_jewel/providers/user-provider.dart';
 import 'package:make_jewel/screens/landing_page.dart';
+import 'package:make_jewel/screens/login.dart';
 import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
@@ -13,7 +14,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     var signIn = context.read<UserProvider>();
-    _signIn() async{
+    _signIn() async {
       await signIn.signIn();
       GoogleSignInAccount? user = signIn.user;
       if (user == null) {
@@ -103,7 +104,10 @@ class _SignInPageState extends State<SignInPage> {
                           style: ElevatedButton.styleFrom(
                               primary: Theme.of(context).buttonColor),
                           onPressed: () {
-                            Navigator.pushReplacementNamed(context, "/landing");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => LoginWithPhoneNumber()));
+                            // Navigator.pushReplacementNamed(context, "/landing");
                           },
                           child: Text("Login"))),
                 ),
