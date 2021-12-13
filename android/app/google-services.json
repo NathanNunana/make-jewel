@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "576117655510",
+    "project_id": "make-jewel",
+    "storage_bucket": "make-jewel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576117655510:android:2d0cb3ccba2b48a8b00677",
+        "android_client_info": {
+          "package_name": "com.example.make_jewel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "576117655510-v19mqhsa63j83ntlghm59citev8at4rk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.make_jewel",
+            "certificate_hash": "ac557b440a0cf3a5511dc2e5806998bd0fc96682"
+          }
+        },
+        {
+          "client_id": "576117655510-ora3stosi7k1evrdpqqk4jra1c047ni9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhI4bwNvu98xRw-1daoANtypvHLHDhQHk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "576117655510-ora3stosi7k1evrdpqqk4jra1c047ni9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,23 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:make_jewel/providers/user-provider.dart';
 
-class LoginWithPhoneNumber extends StatelessWidget {
+class LoginWithPhoneNumber extends StatefulWidget {
+  @override
+  State<LoginWithPhoneNumber> createState() => _LoginWithPhoneNumberState();
+}
+
+class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
   final TextEditingController _controller = TextEditingController();
-  final PhoneNumber number = PhoneNumber(isoCode: 'GHA');
+  final PhoneNumber phoneNumber = PhoneNumber(isoCode: 'GHA');
+  bool isLoading = false;
+  String phone = "";
+  String verificationId = "";
+  bool isValid = false;
+  final _key = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {},
-      //   child: Icon(CupertinoIcons.arrow_right),
-      // ),
+      key: _key,
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Row(
                 children: [
@@ -39,6 +50,7 @@ class LoginWithPhoneNumber extends StatelessWidget {
                 height: 40,
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.height * .3,
@@ -47,24 +59,32 @@ class LoginWithPhoneNumber extends StatelessWidget {
                   SizedBox(
                     height: 40,
                   ),
+                  Text("REGISTRATION",
+                      style: TextStyle(
+                          color: Color(0xff9245F5),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20)),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
                       margin: EdgeInsets.symmetric(horizontal: 79),
                       alignment: Alignment.center,
                       child: Text(
-                        "You'll receive a 4 digit code to verify next.",
+                        "Please confirm your country code and enter your phone number.",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 17),
                       ))
                 ],
               ),
-              // SizedBox(height: 50),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 40),
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
                 child: InternationalPhoneNumberInput(
+                  spaceBetweenSelectorAndTextField: 0,
                   textFieldController: _controller,
-                  initialValue: number,
+                  initialValue: phoneNumber,
                   onInputValidated: (bool value) {
-                    print(value);
+                    isValid = value;
                   },
                   selectorConfig: SelectorConfig(
                     selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
@@ -74,55 +94,47 @@ class LoginWithPhoneNumber extends StatelessWidget {
                   keyboardType: TextInputType.numberWithOptions(
                       signed: true, decimal: true),
                   autoValidateMode: AutovalidateMode.disabled,
-                  // inputDecoration: InputDecoration(
-                  //   filled: true,
-
-                  // ),
                   inputBorder: OutlineInputBorder(
                       // borderSide: BorderSide.none
                       ),
                   onInputChanged: (PhoneNumber number) {
                     print(number.phoneNumber);
+                    phone = number.phoneNumber.toString();
                   },
                   onSaved: (PhoneNumber number) {
-                    print('On Saved: $number');
+                    // print("Here");
+                    // print(number);
+                    // phone = number.phoneNumber.toString();
+                    // context
+                    //     .read<UserProvider>()
+                    //     .phoneAuth(number.phoneNumber.toString());
                   },
                 ),
               ),
-              // SizedBox(height: 50),
-              Container(
-                padding: EdgeInsets.all(17),
-                decoration: BoxDecoration(
-                    color: Color(0xff9245F5), shape: BoxShape.circle),
-                child: Icon(
-                  CupertinoIcons.arrow_right,
-                  color: Colors.white,
-                ),
-              )
-              // Container(
-              //   margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              //   child: TextField(
-              //     keyboardType: TextInputType.number,
-              //     decoration: InputDecoration(
-              //       filled: true,
-              //       label: Text("Enter your phone"),
-              //       suffix: Container(
-              //         padding: EdgeInsets.all(20),
-              //         decoration: BoxDecoration(
-              //             borderRadius: BorderRadius.circular(10),
-              //             color: Color(0xff9245F5)),
-              //         child: Text(
-              //           "Continue",
-              //           style: TextStyle(
-              //               color: Colors.white, fontWeight: FontWeight.bold),
-              //         ),
-              //       ),
-              //       border: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(10),
-              //           borderSide: BorderSide.none),
-              //     ),
-              //   ),
-              // ),
+              isLoading? CircularProgressIndicator() : MaterialButton(
+                onPressed: () async {
+                  if (isValid) {
+                  setState(() {
+                    isLoading = true;
+                  });
+                }
+                await context.read<UserProvider>().phoneAuth(phone, context);
+                },
+                minWidth: MediaQuery.of(context).size.width*.7,
+                color: Color(0xff9245F5),
+                  padding: EdgeInsets.all(17),
+                  // decoration: BoxDecoration(
+                  //     color: Color(0xff9245F5),
+                  //     borderRadius: BorderRadius.circular(10)),
+                  child:Text(
+                    "Confirm and Continue",
+                    style: TextStyle(color: Colors.white),
+                  )
+                  // Icon(
+                  //   CupertinoIcons.arrow_right,
+                  //   color: Colors.white,
+                  // ),
+                  )
             ],
           ),
         ),
