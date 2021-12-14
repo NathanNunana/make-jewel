@@ -14,7 +14,7 @@ class LoginWithPhoneNumber extends StatefulWidget {
 
 class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
   final TextEditingController _controller = TextEditingController();
-  final PhoneNumber phoneNumber = PhoneNumber(isoCode: 'GHA');
+  final PhoneNumber phoneNumber = PhoneNumber(isoCode: 'GH');
   bool isLoading = false;
   String phone = "";
   String verificationId = "";
@@ -94,9 +94,22 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
                   keyboardType: TextInputType.numberWithOptions(
                       signed: true, decimal: true),
                   autoValidateMode: AutovalidateMode.disabled,
-                  inputBorder: OutlineInputBorder(
-                      // borderSide: BorderSide.none
-                      ),
+                  inputDecoration: InputDecoration(
+                      filled: true,
+                      hintText: "Phone number",
+                      border: OutlineInputBorder(borderSide: BorderSide.none)),
+                  selectorButtonOnErrorPadding: 20,
+                  // searchBoxDecoration: InputDecoration(
+                  //   filled: true,
+                  //   hintText: "Search by country name or country code",
+                  //   border: OutlineInputBorder(
+                  //   borderSide: BorderSide.none
+                  // )
+                  // ),
+                  // inputBorder: OutlineInputBorder(
+                  //     borderSide: BorderSide.none
+
+                  //     ),
                   onInputChanged: (PhoneNumber number) {
                     print(number.phoneNumber);
                     phone = number.phoneNumber.toString();
@@ -111,30 +124,44 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
                   },
                 ),
               ),
-              isLoading? CircularProgressIndicator() : MaterialButton(
-                onPressed: () async {
-                  if (isValid) {
-                  setState(() {
-                    isLoading = true;
-                  });
-                }
-                await context.read<UserProvider>().phoneAuth(phone, context);
-                },
-                minWidth: MediaQuery.of(context).size.width*.7,
-                color: Color(0xff9245F5),
-                  padding: EdgeInsets.all(17),
-                  // decoration: BoxDecoration(
-                  //     color: Color(0xff9245F5),
-                  //     borderRadius: BorderRadius.circular(10)),
-                  child:Text(
-                    "Confirm and Continue",
-                    style: TextStyle(color: Colors.white),
-                  )
-                  // Icon(
-                  //   CupertinoIcons.arrow_right,
-                  //   color: Colors.white,
-                  // ),
-                  )
+              isLoading
+                  ? CircularProgressIndicator()
+                  : MaterialButton(
+                      onPressed: () async {
+                        if (isValid) {
+                          setState(() {
+                            isLoading = true;
+                          });
+                        } else {
+                          if (phone.isEmpty) {
+                            context
+                                .read<UserProvider>()
+                                .snackBar("Empty phone number field", context);
+                          } else {
+                            context
+                                .read<UserProvider>()
+                                .snackBar("Phone number is incorrect", context);
+                          }
+                        }
+                        await context
+                            .read<UserProvider>()
+                            .phoneAuth(phone, context);
+                      },
+                      minWidth: MediaQuery.of(context).size.width * .7,
+                      color: Color(0xff9245F5),
+                      padding: EdgeInsets.all(17),
+                      // decoration: BoxDecoration(
+                      //     color: Color(0xff9245F5),
+                      //     borderRadius: BorderRadius.circular(10)),
+                      child: Text(
+                        "Confirm and Continue",
+                        style: TextStyle(color: Colors.white),
+                      )
+                      // Icon(
+                      //   CupertinoIcons.arrow_right,
+                      //   color: Colors.white,
+                      // ),
+                      )
             ],
           ),
         ),

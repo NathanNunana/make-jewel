@@ -33,92 +33,104 @@ _showDialog(context, item) {
                                 fontSize: 18, fontWeight: FontWeight.w700),
                           ),
                         ),
-                        Row(
-                          children: [
-                            Flexible(
-                              child: Container(
-                                height: 150,
-                                width: double.infinity - 50,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => (item.jewelUrl2 != null)
+                                        ? DetailScreen(
+                                            image: item.jewelUrl2,
+                                          )
+                                        : DetailScreen(
+                                            image: item.jewelUrl1,
+                                          )));
+                          },
+                          child: Container(
+                              height: 150,
+                              width: double.infinity - 50,
+                              child: Hero(
+                                  tag: 'imageHero',
+                                  child: (item.jewelUrl2 != null)
+                                      ? Image.network(
+                                          item.jewelUrl2,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.network(
+                                          item.jewelUrl1,
+                                          fit: BoxFit.cover,
+                                        ))),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          // height: 150,
+                          child: Row(
+                            // mainAxisAlignment:
+                            // MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 45,
+                                width: 45,
                                 child: (item.jewelUrl2 != null)
                                     ? Image.network(
                                         item.jewelUrl2,
                                         fit: BoxFit.cover,
                                       )
                                     : Container(),
+                                decoration: BoxDecoration(
+                                    // color: Colors.red,
+                                    // border: Border.all(
+                                    //     color: Colors.black, width: .1),
+                                    ),
+                                // padding: EdgeInsets.all(20),
                               ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Container(
-                              height: 150,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    height: 45,
-                                    width: 45,
-                                    child: (item.jewelUrl2 != null)
-                                        ? Image.network(
-                                            item.jewelUrl2,
-                                            fit: BoxFit.cover,
-                                          )
-                                        : Container(),
-                                    decoration: BoxDecoration(
-                                        // color: Colors.red,
-                                        // border: Border.all(
-                                        //     color: Colors.black, width: .1),
-                                        ),
-                                    // padding: EdgeInsets.all(20),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    height: 45,
-                                    width: 45,
-
-                                    child: (item.jewelUrl2 != null)
-                                        ? Image.network(
-                                            item.jewelUrl2,
-                                            fit: BoxFit.cover,
-                                          )
-                                        : Container(),
-                                    decoration: BoxDecoration(
-
-                                        // color: Colors.red,
-                                        // border: Border.all(
-                                        //     color: Colors.black, width: .1)
-                                        ),
-                                    // padding: EdgeInsets.all(20),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    height: 45,
-                                    width: 45,
-
-                                    child: (item.jewelUrl2 != null)
-                                        ? Image.network(
-                                            item.jewelUrl2,
-                                            fit: BoxFit.cover,
-                                          )
-                                        : Container(),
-                                    decoration: BoxDecoration(
-
-                                        // border: Border.all(
-                                        //     color: Colors.black, width: .1)
-                                        ),
-                                    // padding: EdgeInsets.all(20),
-                                  )
-                                ],
+                              SizedBox(
+                                width: 5,
+                                height: 5,
                               ),
-                            ),
-                          ],
+                              Container(
+                                height: 45,
+                                width: 45,
+
+                                child: (item.jewelUrl2 != null)
+                                    ? Image.network(
+                                        item.jewelUrl2,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Container(),
+                                decoration: BoxDecoration(
+
+                                    // color: Colors.red,
+                                    // border: Border.all(
+                                    //     color: Colors.black, width: .1)
+                                    ),
+                                // padding: EdgeInsets.all(20),
+                              ),
+                              SizedBox(
+                                width: 5,
+                                height: 5,
+                              ),
+                              Container(
+                                height: 45,
+                                width: 45,
+
+                                child: (item.jewelUrl2 != null)
+                                    ? Image.network(
+                                        item.jewelUrl2,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Container(),
+                                decoration: BoxDecoration(
+
+                                    // border: Border.all(
+                                    //     color: Colors.black, width: .1)
+                                    ),
+                                // padding: EdgeInsets.all(20),
+                              )
+                            ],
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -200,14 +212,17 @@ _showDialog(context, item) {
                   //       width: 10,
                   //     ),
                   MaterialButton(
-                    minWidth: double.infinity,
-                    color: Color(0xff9245F5),
+                      minWidth: double.infinity,
+                      color: Color(0xff9245F5),
                       // style: ElevatedButton.styleFrom(
-                          // primary: Theme.of(context).buttonColor),
+                      // primary: Theme.of(context).buttonColor),
                       onPressed: () {
                         launch("tel:" + tel);
                       },
-                      child: Icon(Icons.call, color: Colors.white,)),
+                      child: Icon(
+                        Icons.call,
+                        color: Colors.white,
+                      )),
                 ],
                 //   )
                 // ],
@@ -273,4 +288,30 @@ buildListItem(var item, BuildContext context) {
       ),
     ),
   );
+}
+
+class DetailScreen extends StatelessWidget {
+  final String? image;
+  const DetailScreen({Key? key, this.image}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Center(
+          child: Hero(
+            tag: 'imageHero',
+            child: Image.network(
+              image.toString(),
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

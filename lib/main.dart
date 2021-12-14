@@ -6,6 +6,7 @@ import 'package:make_jewel/providers/user-provider.dart';
 import 'package:make_jewel/screens/about.dart';
 import 'package:make_jewel/screens/add-product.dart';
 import 'package:make_jewel/screens/my-shop.dart';
+import 'package:make_jewel/screens/otp.dart';
 import 'package:make_jewel/screens/products.dart';
 import 'package:make_jewel/screens/sign-in.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,6 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'screens/landing_page.dart';
 import 'package:make_jewel/providers/products-provider.dart';
 import 'package:make_jewel/screens/categories.dart';
-import './screens/otp.dart';
 
 void main() async {
   WidgetsFlutterBinding();
@@ -57,14 +57,15 @@ class MyApp extends StatelessWidget {
               iconTheme: IconThemeData(color: Colors.black),
             )),
         routes: {
-          "/": (_) => OtpScreen(),
-          // SignInPage(),
+          "/": (_) => 
+          // OtpScreen(),
+          SignInPage(),
           "/about-app": (_) => AboutAppPage(),
           "/landing": (_) => LandingPage(),
           "/all-products": (_) => ProductsPage(),
           "/add-products": (_) => AddProducts(),
           "/my-shop": (_) => MyShop(),
-          "/otpscreen":(_) => OtpScreen()
+          // "/otpscreen": (_) => OtpScreen()
         },
       ),
     );

@@ -1,24 +1,38 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 import 'package:make_jewel/providers/user-provider.dart';
 
-class OtpScreen extends StatelessWidget {
-  _buildTextField() {
-    return Flexible(
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 9),
-        child: TextField(
-          decoration: InputDecoration(
-              filled: true,
-              border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(10))),
-          keyboardType: TextInputType.number,
-        ),
-      ),
-    );
+class OtpScreen extends StatefulWidget {
+  final PhoneAuthCredential? credential;
+  final FirebaseAuth? auth;
+  OtpScreen({this.credential, this.auth});
+  @override
+  State<OtpScreen> createState() => _OtpScreenState();
+}
+
+class _OtpScreenState extends State<OtpScreen> {
+  TextEditingController _controller = TextEditingController();
+  bool isLoading = false;
+
+  Future _signIn() async {
+    setState(() {
+      isLoading = true;
+    });
+    print("Credential: ${widget.credential}");
+    await FirebaseAuth.instance
+        .signInWithCredential(widget.credential!)
+        .then((value) => Navigator.pushReplacementNamed(context, "/landing"));
+    print(widget.credential);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.text = context.read<UserProvider>().smsCode;
   }
 
   @override
@@ -26,36 +40,27 @@ class OtpScreen extends StatelessWidget {
     String number = context.read<UserProvider>().phone;
     return Scaffold(
         body: SafeArea(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        Row(
-          children: [
-            IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(CupertinoIcons.arrow_left)),
-            SizedBox(
-              width: 50,
-            ),
-            Text(
-              "Verify Phone",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            )
-          ],
-        ),
-        Column(
+      child: SingleChildScrollView(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(child: Image.asset("assets/images/verify.png", fit: BoxFit.cover,)),
+            Container(
+                margin: EdgeInsets.all(20),
+                // width: 150,
+                child: Image.asset(
+                  "assets/images/otp.gif",
+                  fit: BoxFit.cover,
+                )),
             SizedBox(
               height: 20,
             ),
             Text(
               "OTP Verification",
               style: TextStyle(
-                color: Color(0xff9245F5),
-                fontWeight: FontWeight.bold, fontSize: 18),
+                  color: Color(0xff9245F5),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18),
             ),
             SizedBox(
               height: 10,
@@ -67,9 +72,28 @@ class OtpScreen extends StatelessWidget {
             SizedBox(
               height: 50,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: List.generate(6, (index) => _buildTextField()),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 30),
+              child: PinCodeTextField(
+                controller: _controller,
+                appContext: context,
+                length: 6,
+                onChanged: (String code) {},
+                obscuringCharacter: "*",
+                animationType: AnimationType.fade,
+                blinkWhenObscuring: true,
+                obscureText: true,
+                enableActiveFill: false,
+                keyboardType: TextInputType.number,
+                pastedTextStyle: TextStyle(
+                    color: Colors.green.shade600, fontWeight: FontWeight.bold),
+                pinTheme: PinTheme(
+                  shape: PinCodeFieldShape.box,
+                  fieldHeight: 50,
+                  fieldWidth: 40,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
             ),
             SizedBox(
               height: 50,
@@ -84,8 +108,8 @@ class OtpScreen extends StatelessWidget {
                     "Didn't receive code? ",
                     style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                   ),
-                  InkWell(
-                    onTap: () {
+                  TextButton(
+                    onPressed: () {
                       context.read<UserProvider>().phoneAuth(number, context);
                     },
                     child: Text(
@@ -93,33 +117,28 @@ class OtpScreen extends StatelessWidget {
                       style:
                           TextStyle(fontWeight: FontWeight.w900, fontSize: 18),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
             SizedBox(
               height: 50,
             ), // Icon(
-            MaterialButton(
-                onPressed: () {},
-                minWidth: MediaQuery.of(context).size.width * .7,
-                color: Color(0xff9245F5),
-                padding: EdgeInsets.all(17),
-                // decoration: BoxDecoration(
-                //     color: Color(0xff9245F5),
-                //     borderRadius: BorderRadius.circular(10)),
-                child: Text(
-                  "Verify and Continue",
-                  style: TextStyle(color: Colors.white),
-                )
-                // Icon(
-                //   CupertinoIcons.arrow_right,
-                //   color: Colors.white,
-                // ),
-                )
+            (isLoading)
+                ? CircularProgressIndicator()
+                : MaterialButton(
+                    onPressed: _signIn,
+                    minWidth: MediaQuery.of(context).size.width * .7,
+                    color: Color(0xff9245F5),
+                    padding: EdgeInsets.all(17),
+                    child: Text(
+                      "Verify and Continue",
+                      style: TextStyle(color: Colors.white),
+                    )
+                    )
           ],
         ),
-      ]),
+      ),
     ));
   }
 }
