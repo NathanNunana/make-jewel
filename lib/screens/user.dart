@@ -43,11 +43,11 @@ class UserPage extends StatelessWidget {
         CircleAvatar(
             backgroundColor: Colors.grey[500],
             radius: 50,
-            backgroundImage: (user != null)
+            backgroundImage: (fuser == null)
                 ? NetworkImage(
-                    user.photoUrl.toString(),
+                    user!.photoUrl.toString(),
                   )
-                : (fuser!.photoURL != null)
+                : (fuser.photoURL != null)
                     ? NetworkImage(
                         fuser.photoURL.toString(),
                       )
@@ -65,32 +65,34 @@ class UserPage extends StatelessWidget {
             children: [
               (user != null)
                   ? Text(
-                     (user.displayName == null)
+                      (user.displayName == null)
                           ? "..."
                           : user.displayName.toString(),
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     )
-                  : Text(
-                      (fuser!.displayName == null)
+                  : (fuser != null)? Text(
+                      (fuser.displayName == null)
                           ? "New User"
                           : fuser.displayName.toString(),
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                    ),
+                    ):Container(),
               SizedBox(
                 height: 5,
               ),
               (user != null)
                   ? Text(
-                     user.email.toString(),
+                      user.email.toString(),
                       // user!.email
-                      )
-                  : Text((fuser!.email == null)
-                          ? "name@makejewel.com"
-                          : fuser.email.toString()
-                      // user!.email
-                      ),
+                    )
+                  : (fuser != null)
+                      ? Text((fuser.email == null)
+                              ? "name@makejewel.com"
+                              : fuser.email.toString()
+                          // user!.email
+                          )
+                      : Container(),
             ],
           ),
         ),
@@ -126,8 +128,9 @@ class UserPage extends StatelessWidget {
             _buildListTileItem("Settings", Colors.black, Icons.settings),
             GestureDetector(
                 onTap: () {
-                  context.read<UserProvider>().signOut();
-                  FirebaseAuth.instance.signOut();
+                  (fuser == null)
+                      ? context.read<UserProvider>().signOut()
+                      : FirebaseAuth.instance.signOut();
                   Navigator.pushReplacementNamed(context, "/");
                 },
                 child: _buildListTileItem("logout", Colors.red, Icons.logout))

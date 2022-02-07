@@ -13,6 +13,7 @@ class UserProvider extends ChangeNotifier {
 
   signIn() async {
     user = await login();
+    notifyListeners();
   }
 
   signOut() {
@@ -21,10 +22,10 @@ class UserProvider extends ChangeNotifier {
 
   String smsCode = "";
 
-  smsGetter(String sms) {
-    smsCode = sms;
-    notifyListeners();
-  }
+  // smsGetter(String sms) {
+  //   smsCode = sms;
+  //   notifyListeners();
+  // }
 
   snackBar(String? message, BuildContext context) {
     return ScaffoldMessenger.of(context).showSnackBar(
@@ -69,17 +70,11 @@ class UserProvider extends ChangeNotifier {
           }
         },
         codeSent: (String verificationId, int? resendToken) async {
-          String smsCode = "555555";
-          print("vCode: $verificationId");
-          PhoneAuthCredential credential = PhoneAuthProvider.credential(
-              verificationId: verificationId, smsCode: smsCode);
-          smsGetter(smsCode);
-          if(smsCode.isNotEmpty)
           await Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
                   builder: (_) =>
-                      OtpScreen(credential: credential, auth: _auth)), (route) => false);
+                      OtpScreen(verificationId: verificationId)), (route) => false);
         },
         codeAutoRetrievalTimeout: (String verificationId) {},
       );

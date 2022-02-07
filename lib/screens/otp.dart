@@ -7,9 +7,9 @@ import 'package:provider/provider.dart';
 import 'package:make_jewel/providers/user-provider.dart';
 
 class OtpScreen extends StatefulWidget {
-  final PhoneAuthCredential? credential;
-  final FirebaseAuth? auth;
-  OtpScreen({this.credential, this.auth});
+  final String? verificationId;
+  // final FirebaseAuth? auth;
+  OtpScreen({this.verificationId});
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
@@ -18,22 +18,26 @@ class _OtpScreenState extends State<OtpScreen> {
   TextEditingController _controller = TextEditingController();
   bool isLoading = false;
 
-  Future _signIn() async {
+  Future<void> _signIn() async {
     setState(() {
       isLoading = true;
     });
-    print("Credential: ${widget.credential}");
+    print("Credential: ${widget.verificationId}");
+
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: widget.verificationId.toString(),
+        smsCode: _controller.text);
     await FirebaseAuth.instance
-        .signInWithCredential(widget.credential!)
+        .signInWithCredential(credential)
         .then((value) => Navigator.pushReplacementNamed(context, "/landing"));
-    print(widget.credential);
+    print(credential);
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _controller.text = context.read<UserProvider>().smsCode;
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _controller.text = context.read<UserProvider>().smsCode;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +83,10 @@ class _OtpScreenState extends State<OtpScreen> {
                 appContext: context,
                 length: 6,
                 onChanged: (String code) {},
-                obscuringCharacter: "*",
+                // obscuringCharacter: "*",
                 animationType: AnimationType.fade,
                 blinkWhenObscuring: true,
-                obscureText: true,
+                // obscureText: true,
                 enableActiveFill: false,
                 keyboardType: TextInputType.number,
                 pastedTextStyle: TextStyle(
@@ -134,8 +138,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     child: Text(
                       "Verify and Continue",
                       style: TextStyle(color: Colors.white),
-                    )
-                    )
+                    ))
           ],
         ),
       ),
